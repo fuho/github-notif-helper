@@ -3,7 +3,7 @@ import moment from 'moment';
 
 /**
  * CacheValidator class, methods here check for the validity of the cache.
- *   These methods should return false if the cache is invalid.
+ * These methods should return false if the cache is invalid.
  * @author Dean Silfen
  */
 class CacheValidator {
@@ -17,7 +17,8 @@ class CacheValidator {
     }
 
     /**
-     * @param {number} timestamp - lastViewed timestamp
+     * @param {number} cachedCount
+     * @param {number} commitNum
      * @return {boolean} true if cache is stale and should be busted
      */
     static noNewCommits(cachedCount, commitNum) {
