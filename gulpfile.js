@@ -7,7 +7,6 @@ var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var browserify = require("browserify");
 var esdoc = require("gulp-esdoc");
 
 gulp.task('default', function () {
