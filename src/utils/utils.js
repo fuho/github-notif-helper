@@ -56,6 +56,14 @@ class Utils {
     }
 
     /**
+     * @param {jQuery} fileContent
+     * @returns {jQuery} toggle button for provided fileContent
+     */
+    static getToggleButton(fileContent) {
+        return fileContent.parent().find("#toggle");
+    }
+
+    /**
      * @return {number} Unix timestamp of the last time the page was viewed, -1 if no value is cached.
      */
     static getLastViewed() {
@@ -98,7 +106,7 @@ class Utils {
             return fileContent; // Short circuit if the toggle exists
         }
 
-        let button  = $('<a id="toggle" class="btn-octicon tooltipped tooltipped-nw"></a>');
+        let button = $('<a id="toggle" class="btn-octicon tooltipped tooltipped-nw"></a>');
         button.on("click", (event) => {
             let visibilityBool = Utils.toggleVisibility(fileContent);
             Utils.setFileInCache(Utils.getKeyIdFromEvent(event), visibilityBool);
@@ -134,7 +142,18 @@ class Utils {
         } else {
             fileContent.show(350);
         }
+        Utils.setButtonState(fileContent, visibilityBool);
         return !visibilityBool;
+    }
+
+    /**
+     * Toggles the button opacity based on file visibility
+     * @param {jQuery} fileContent
+     * @param {boolean} isFileVisible
+     */
+    static setButtonState(fileContent, isFileVisible) {
+        let button = Utils.getToggleButton(fileContent);
+        button.css("opacity", isFileVisible ? 1 : .5);
     }
 
     /**
@@ -145,7 +164,7 @@ class Utils {
     static branchSpanToAnchor(span) {
         let indexOfPullInURL = window.location.href.indexOf('pull');
         let branchUrl = (
-          window.location.href.slice(0, indexOfPullInURL) + 'tree/' + span.innerHTML
+            window.location.href.slice(0, indexOfPullInURL) + 'tree/' + span.innerHTML
         );
         let anchor = document.createElement('a');
         anchor.className = "branch-anchor-tag";

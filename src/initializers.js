@@ -40,13 +40,13 @@ class Initializers {
      */
     static addToggleAll(event, files, commitNum) {
         if (!files.length || $('#toggle-all').length) {
-          return false;
+            return false;
         }
 
         let buttonGroup = $('.btn-group.right');
         let templateButton = $('<a id="toggle-all" class="btn btn-sm"></a>');
         templateButton.html('Toggle All');
-        templateButton.on('click',  (clickEvent) => {
+        templateButton.on('click', (clickEvent) => {
             files.each((i, element) => {
                 let fileContent = $(element).find("div.data, div.render-wrapper");
                 Utils.toggleVisibility(fileContent);
@@ -72,21 +72,21 @@ class Initializers {
             let fileContent = Utils.addToggleButtonForElement(element);
             if (cachedView === false) {
                 fileContent.hide(100);
+                Utils.setButtonState(fileContent, true);
             } else {
                 viewedFiles[element.id] = true;
+                Utils.setButtonState(fileContent, false);
             }
         });
-        Utils.updateLocalStorage('files', viewedFiles)
+        Utils.updateLocalStorage('files', viewedFiles);
         return true
     }
 
     /**
-     * @listens {EventFileInView} Listens to this event to add toggle button on file action bar
-     * @param   {Event} event - triggered from navigating to /files URL
-     * @param   {Selector} files - all file div's on the page
-     * @param   {number} commitNum - count of commits for the current PR
+     * @listens {EventOnPullPage} Listens to this event to linkify branches
+     * @param   {Event} event - triggered by navbigating to /pull URL
      */
-    static makeBranchesLinks(event, files, commitNum) {
+    static makeBranchesLinks(event) {
         if ($('.branch-anchor-tag').length) {
             return false;
         }

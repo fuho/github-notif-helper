@@ -25,7 +25,7 @@ function readyFunction() {
         }
 
         if (location.href.indexOf('pull') !== -1) {
-            $(document).trigger(EventOnPullPage, []);
+            $(document).trigger(EventOnPullPage);
         }
         setTimeout(triggerLocationChange, 250);
     }
